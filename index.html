@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Daythree Taobao Malaysia | Business Portal</title>
+
+  <style>
+    :root {
+      --bg: #070b14;
+      --card: rgba(255,255,255,0.08);
+      --card2: rgba(255,255,255,0.12);
+      --text: #ffffff;
+      --muted: #b9c2d3;
+      --gold: #f6c85f;
+      --blue: #55a7ff;
+      --border: rgba(255,255,255,0.15);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Inter, Arial, sans-serif;
+    }
+
+    body {
+      background:
+        radial-gradient(circle at top left, rgba(85,167,255,0.25), transparent 35%),
+        radial-gradient(circle at top right, rgba(246,200,95,0.22), transparent 35%),
+        linear-gradient(135deg, #050812, #0b1020 45%, #12182b);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    a { text-decoration: none; color: inherit; }
+
+    .container {
+      width: min(1180px, 92%);
+      margin: auto;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(18px);
+      background: rgba(5, 8, 18, 0.78);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav {
+      height: 82px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo img {
+      height: 42px;
+      max-width: 220px;
+      object-fit: contain;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .nav-links a:hover {
+      color: var(--gold);
+    }
+
+    .nav-btn {
+      padding: 12px 22px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--gold), #ffdf8b);
+      color: #111;
+      font-weight: 700;
+      box-shadow: 0 12px 30px rgba(246,200,95,0.28);
+    }
+
+    .hero {
+      padding: 95px 0 70px;
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 55px;
+      align-items: center;
+    }
+
+    .badge {
+      display: inline-flex;
+      padding: 9px 16px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: rgba(255,255,255,0.06);
+      color: var(--gold);
+      font-size: 13px;
+      margin-bottom: 24px;
+    }
+
+    .hero h1 {
+      font-size: clamp(42px, 6vw, 74px);
+      line-height: 1.03;
+      letter-spacing: -2px;
+      margin-bottom: 24px;
+    }
+
+    .hero h1 span {
+      background: linear-gradient(135deg, var(--gold), var(--blue));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero p {
+      color: var(--muted);
+      font-size: 18px;
+      line-height: 1.75;
+      max-width: 620px;
+      margin-bottom: 34px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .primary-btn, .secondary-btn {
+      padding: 15px 26px;
+      border-radius: 14px;
+      font-weight: 700;
+      transition: 0.25s;
+    }
+
+    .primary-btn {
+      background: linear-gradient(135deg, var(--gold), #ffe39a);
+      color: #101010;
+    }
+
+    .secondary-btn {
+      border: 1px solid var(--border);
+      color: #fff;
+      background: rgba(255,255,255,0.06);
+    }
+
+    .primary-btn:hover, .secondary-btn:hover {
+      transform: translateY(-3px);
+    }
+
+    .dashboard-card {
+      border: 1px solid var(--border);
+      background: linear-gradient(180deg, rgba(255,255,255,0.14), rgba(255,255,255,0.05));
+      border-radius: 30px;
+      padding: 28px;
+      box-shadow: 0 35px 80px rgba(0,0,0,0.35);
+    }
+
+    .card-top {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 26px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .status {
+      color: #68ffb0;
+    }
+
+    .metric {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      padding: 22px;
+      margin-bottom: 16px;
+    }
+
+    .metric h3 {
+      font-size: 34px;
+      margin-bottom: 8px;
+    }
+
+    .metric p {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .progress {
+      height: 9px;
+      background: rgba(255,255,255,0.12);
+      border-radius: 99px;
+      overflow: hidden;
+      margin-top: 15px;
+    }
+
+    .progress span {
+      display: block;
+      width: 82%;
+      height: 100%;
+      background: linear-gradient(90deg, var(--gold), var(--blue));
+    }
+
+    section {
+      padding: 80px 0;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+    .section-title h2 {
+      font-size: clamp(32px, 4vw, 48px);
+      margin-bottom: 14px;
+    }
+
+    .section-title p {
+      color: var(--muted);
+      font-size: 16px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .feature {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 30px;
+      transition: 0.25s;
+    }
+
+    .feature:hover {
+      transform: translateY(-7px);
+      background: var(--card2);
+    }
+
+    .icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 16px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, var(--gold), var(--blue));
+      color: #111;
+      font-size: 24px;
+      margin-bottom: 22px;
+    }
+
+    .feature h3 {
+      font-size: 21px;
+      margin-bottom: 12px;
+    }
+
+    .feature p {
+      color: var(--muted);
+      line-height: 1.7;
+      font-size: 15px;
+    }
+
+    .process {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+
+    .step {
+      padding: 28px;
+      border-radius: 24px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.06);
+    }
+
+    .step strong {
+      color: var(--gold);
+      font-size: 14px;
+    }
+
+    .step h3 {
+      margin: 14px 0 10px;
+    }
+
+    .step p {
+      color: var(--muted);
+      line-height: 1.6;
+      font-size: 14px;
+    }
+
+    .cta {
+      text-align: center;
+      padding: 70px 30px;
+      border-radius: 32px;
+      background:
+        linear-gradient(135deg, rgba(246,200,95,0.18), rgba(85,167,255,0.18)),
+        rgba(255,255,255,0.07);
+      border: 1px solid var(--border);
+    }
+
+    .cta h2 {
+      font-size: clamp(30px, 4vw, 50px);
+      margin-bottom: 18px;
+    }
+
+    .cta p {
+      color: var(--muted);
+      margin-bottom: 30px;
+      font-size: 17px;
+    }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 30px 0;
+      color: var(--muted);
+      text-align: center;
+      font-size: 14px;
+    }
+
+    @media (max-width: 900px) {
+      .hero {
+        grid-template-columns: 1fr;
+        padding-top: 60px;
+      }
+
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .process {
+        grid-template-columns: 1fr;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .nav-btn {
+        display: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <div class="container nav">
+      <div class="logo">
+        <img src="https://cdn.brandfetch.io/idxWEI3cVr/w/2787/h/740/theme/dark/logo.png?c=1dxbfHSJFAPEGdCLU4o5B" alt="Company Logo">
+      </div>
+
+      <nav class="nav-links">
+        <a href="#services">Services</a>
+        <a href="#process">Process</a>
+        <a href="#portal">Portal</a>
+        <a href="#contact">Contact</a>
+      </nav>
+
+      <a href="#portal" class="nav-btn">Get Started</a>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <section class="hero">
+      <div>
+        <div class="badge">Professional Business Portal</div>
+
+        <h1>
+          Smart Digital System For <span>Business Operations</span>
+        </h1>
+
+        <p>
+          A modern, secure and professional web portal designed to simplify registration,
+          internal workflow, employee onboarding, data management and business communication.
+        </p>
+
+        <div class="hero-actions">
+          <a href="#portal" class="primary-btn">Start Now</a>
+          <a href="#services" class="secondary-btn">Explore Services</a>
+        </div>
+      </div>
+
+      <div class="dashboard-card">
+        <div class="card-top">
+          <span>System Overview</span>
+          <span class="status">● Active</span>
+        </div>
+
+        <div class="metric">
+          <h3>98%</h3>
+          <p>Process Efficiency</p>
+          <div class="progress"><span></span></div>
+        </div>
+
+        <div class="metric">
+          <h3>24/7</h3>
+          <p>Digital Access & Automation</p>
+        </div>
+
+        <div class="metric">
+          <h3>Secure</h3>
+          <p>Private data handling with controlled access.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="services">
+      <div class="section-title">
+        <h2>Business Solutions</h2>
+        <p>Designed for professional teams who need speed, accuracy and control.</p>
+      </div>
+
+      <div class="grid">
+        <div class="feature">
+          <div class="icon">✓</div>
+          <h3>Registration System</h3>
+          <p>Collect employee or customer information through a clean and structured digital process.</p>
+        </div>
+
+        <div class="feature">
+          <div class="icon">🔒</div>
+          <h3>Secure Access</h3>
+          <p>Keep sensitive information private with restricted access and admin-only management.</p>
+        </div>
+
+        <div class="feature">
+          <div class="icon">⚡</div>
+          <h3>Workflow Automation</h3>
+          <p>Reduce manual work by connecting forms, sheets, notifications and internal processes.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="process">
+      <div class="section-title">
+        <h2>How It Works</h2>
+        <p>A simple and professional process from submission to completion.</p>
+      </div>
+
+      <div class="process">
+        <div class="step">
+          <strong>STEP 01</strong>
+          <h3>Submit</h3>
+          <p>User submits required information through the digital portal.</p>
+        </div>
+
+        <div class="step">
+          <strong>STEP 02</strong>
+          <h3>Review</h3>
+          <p>Admin checks and verifies the submitted information securely.</p>
+        </div>
+
+        <div class="step">
+          <strong>STEP 03</strong>
+          <h3>Process</h3>
+          <p>The internal team proceeds with account, access or document preparation.</p>
+        </div>
+
+        <div class="step">
+          <strong>STEP 04</strong>
+          <h3>Complete</h3>
+          <p>User receives confirmation once the process has been completed.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="portal">
+      <div class="cta">
+        <h2>Ready To Build A Smarter Business Portal?</h2>
+        <p>
+          Upgrade your workflow with a professional website experience that looks modern,
+          reliable and business-ready.
+        </p>
+
+        <a href="#" class="primary-btn">Launch Portal</a>
+      </div>
+    </section>
+
+  </main>
+
+  <footer id="contact">
+    © 2026 Daythree Taobao Malaysia. All Rights Reserved.
+  </footer>
+
+</body>
+</html>
