@@ -3,18 +3,21 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Daythree Taobao Malaysia | Business Portal</title>
+  <title>Daythree HRMS Portal</title>
 
   <style>
     :root {
-      --bg: #070b14;
-      --card: rgba(255,255,255,0.08);
-      --card2: rgba(255,255,255,0.12);
+      --bg: #07111f;
+      --panel: rgba(255, 255, 255, 0.08);
+      --panel-strong: rgba(255, 255, 255, 0.13);
       --text: #ffffff;
-      --muted: #b9c2d3;
-      --gold: #f6c85f;
-      --blue: #55a7ff;
-      --border: rgba(255,255,255,0.15);
+      --muted: #aeb9cc;
+      --primary: #4da3ff;
+      --secondary: #f7c65f;
+      --success: #4ade80;
+      --danger: #ff5b6e;
+      --border: rgba(255,255,255,0.14);
+      --shadow: 0 30px 80px rgba(0,0,0,0.35);
     }
 
     * {
@@ -25,322 +28,409 @@
     }
 
     body {
-      background:
-        radial-gradient(circle at top left, rgba(85,167,255,0.25), transparent 35%),
-        radial-gradient(circle at top right, rgba(246,200,95,0.22), transparent 35%),
-        linear-gradient(135deg, #050812, #0b1020 45%, #12182b);
+      min-height: 100vh;
       color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(77,163,255,.28), transparent 32%),
+        radial-gradient(circle at top right, rgba(247,198,95,.22), transparent 34%),
+        linear-gradient(135deg, #050a13, #09182c 48%, #101a31);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .app {
+      display: grid;
+      grid-template-columns: 280px 1fr;
       min-height: 100vh;
     }
 
-    a { text-decoration: none; color: inherit; }
-
-    .container {
-      width: min(1180px, 92%);
-      margin: auto;
-    }
-
-    header {
+    aside {
+      border-right: 1px solid var(--border);
+      background: rgba(5, 10, 19, .78);
+      backdrop-filter: blur(20px);
+      padding: 26px 20px;
       position: sticky;
       top: 0;
-      z-index: 10;
-      backdrop-filter: blur(18px);
-      background: rgba(5, 8, 18, 0.78);
-      border-bottom: 1px solid var(--border);
+      height: 100vh;
     }
 
-    .nav {
-      height: 82px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .logo img {
-      height: 42px;
-      max-width: 220px;
-      object-fit: contain;
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 28px;
-      color: var(--muted);
-      font-size: 14px;
-    }
-
-    .nav-links a:hover {
-      color: var(--gold);
-    }
-
-    .nav-btn {
-      padding: 12px 22px;
-      border-radius: 999px;
-      background: linear-gradient(135deg, var(--gold), #ffdf8b);
-      color: #111;
-      font-weight: 700;
-      box-shadow: 0 12px 30px rgba(246,200,95,0.28);
-    }
-
-    .hero {
-      padding: 95px 0 70px;
-      display: grid;
-      grid-template-columns: 1.05fr 0.95fr;
-      gap: 55px;
-      align-items: center;
-    }
-
-    .badge {
-      display: inline-flex;
-      padding: 9px 16px;
-      border: 1px solid var(--border);
-      border-radius: 999px;
-      background: rgba(255,255,255,0.06);
-      color: var(--gold);
-      font-size: 13px;
-      margin-bottom: 24px;
-    }
-
-    .hero h1 {
-      font-size: clamp(42px, 6vw, 74px);
-      line-height: 1.03;
-      letter-spacing: -2px;
-      margin-bottom: 24px;
-    }
-
-    .hero h1 span {
-      background: linear-gradient(135deg, var(--gold), var(--blue));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .hero p {
-      color: var(--muted);
-      font-size: 18px;
-      line-height: 1.75;
-      max-width: 620px;
+    .brand {
       margin-bottom: 34px;
     }
 
-    .hero-actions {
-      display: flex;
-      gap: 16px;
-      flex-wrap: wrap;
+    .brand img {
+      width: 210px;
+      max-width: 100%;
+      margin-bottom: 18px;
     }
 
-    .primary-btn, .secondary-btn {
-      padding: 15px 26px;
-      border-radius: 14px;
-      font-weight: 700;
-      transition: 0.25s;
-    }
-
-    .primary-btn {
-      background: linear-gradient(135deg, var(--gold), #ffe39a);
-      color: #101010;
-    }
-
-    .secondary-btn {
-      border: 1px solid var(--border);
-      color: #fff;
-      background: rgba(255,255,255,0.06);
-    }
-
-    .primary-btn:hover, .secondary-btn:hover {
-      transform: translateY(-3px);
-    }
-
-    .dashboard-card {
-      border: 1px solid var(--border);
-      background: linear-gradient(180deg, rgba(255,255,255,0.14), rgba(255,255,255,0.05));
-      border-radius: 30px;
-      padding: 28px;
-      box-shadow: 0 35px 80px rgba(0,0,0,0.35);
-    }
-
-    .card-top {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 26px;
+    .brand small {
       color: var(--muted);
       font-size: 13px;
+      line-height: 1.6;
     }
 
-    .status {
-      color: #68ffb0;
+    .menu {
+      display: grid;
+      gap: 10px;
     }
 
-    .metric {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 22px;
-      padding: 22px;
-      margin-bottom: 16px;
+    .menu button {
+      width: 100%;
+      padding: 14px 16px;
+      border: 1px solid transparent;
+      border-radius: 16px;
+      background: transparent;
+      color: var(--muted);
+      text-align: left;
+      cursor: pointer;
+      font-size: 15px;
+      transition: .25s;
     }
 
-    .metric h3 {
-      font-size: 34px;
+    .menu button:hover,
+    .menu button.active {
+      background: var(--panel);
+      color: #fff;
+      border-color: var(--border);
+    }
+
+    main {
+      padding: 28px;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 28px;
+      gap: 18px;
+    }
+
+    .title h1 {
+      font-size: clamp(28px, 4vw, 42px);
+      letter-spacing: -1px;
       margin-bottom: 8px;
     }
 
-    .metric p {
+    .title p {
       color: var(--muted);
+    }
+
+    .profile {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      padding: 12px 16px;
+      border-radius: 18px;
+    }
+
+    .avatar {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      color: #111;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--secondary), var(--primary));
+    }
+
+    .profile strong {
+      display: block;
       font-size: 14px;
     }
 
-    .progress {
-      height: 9px;
-      background: rgba(255,255,255,0.12);
-      border-radius: 99px;
-      overflow: hidden;
-      margin-top: 15px;
-    }
-
-    .progress span {
-      display: block;
-      width: 82%;
-      height: 100%;
-      background: linear-gradient(90deg, var(--gold), var(--blue));
-    }
-
-    section {
-      padding: 80px 0;
-    }
-
-    .section-title {
-      text-align: center;
-      margin-bottom: 50px;
-    }
-
-    .section-title h2 {
-      font-size: clamp(32px, 4vw, 48px);
-      margin-bottom: 14px;
-    }
-
-    .section-title p {
+    .profile span {
       color: var(--muted);
-      font-size: 16px;
+      font-size: 12px;
+    }
+
+    .section {
+      display: none;
+      animation: fade .25s ease;
+    }
+
+    .section.active {
+      display: block;
+    }
+
+    @keyframes fade {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     .grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 24px;
-    }
-
-    .feature {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 24px;
-      padding: 30px;
-      transition: 0.25s;
-    }
-
-    .feature:hover {
-      transform: translateY(-7px);
-      background: var(--card2);
-    }
-
-    .icon {
-      width: 52px;
-      height: 52px;
-      border-radius: 16px;
-      display: grid;
-      place-items: center;
-      background: linear-gradient(135deg, var(--gold), var(--blue));
-      color: #111;
-      font-size: 24px;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
       margin-bottom: 22px;
     }
 
-    .feature h3 {
-      font-size: 21px;
-      margin-bottom: 12px;
-    }
-
-    .feature p {
-      color: var(--muted);
-      line-height: 1.7;
-      font-size: 15px;
-    }
-
-    .process {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 20px;
-    }
-
-    .step {
-      padding: 28px;
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--border);
       border-radius: 24px;
-      border: 1px solid var(--border);
-      background: rgba(255,255,255,0.06);
+      padding: 24px;
+      box-shadow: var(--shadow);
     }
 
-    .step strong {
-      color: var(--gold);
+    .card h3 {
+      font-size: 16px;
+      margin-bottom: 10px;
+    }
+
+    .card .value {
+      font-size: 34px;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    .card p,
+    .muted {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    .wide {
+      grid-column: span 2;
+    }
+
+    .full {
+      grid-column: 1 / -1;
+    }
+
+    .actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 16px;
+    }
+
+    .btn {
+      border: 0;
+      padding: 13px 18px;
+      border-radius: 14px;
+      cursor: pointer;
+      font-weight: 800;
+      transition: .25s;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--secondary), #ffe3a0);
+      color: #111;
+    }
+
+    .btn-blue {
+      background: linear-gradient(135deg, var(--primary), #7bc1ff);
+      color: #07111f;
+    }
+
+    .btn-dark {
+      background: rgba(255,255,255,.08);
+      color: #fff;
+      border: 1px solid var(--border);
+    }
+
+    .btn-danger {
+      background: rgba(255,91,110,.14);
+      color: #ff94a0;
+      border: 1px solid rgba(255,91,110,.25);
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap: 18px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      overflow: hidden;
+    }
+
+    th, td {
+      padding: 15px;
+      border-bottom: 1px solid var(--border);
+      text-align: left;
       font-size: 14px;
     }
 
-    .step h3 {
-      margin: 14px 0 10px;
+    th {
+      color: var(--muted);
+      font-weight: 600;
     }
 
-    .step p {
+    .status {
+      display: inline-flex;
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .pending {
+      background: rgba(247,198,95,.15);
+      color: #ffd985;
+    }
+
+    .approved {
+      background: rgba(74,222,128,.14);
+      color: #87f7b1;
+    }
+
+    .open {
+      background: rgba(77,163,255,.15);
+      color: #9bcfff;
+    }
+
+    .form {
+      display: grid;
+      gap: 14px;
+    }
+
+    label {
       color: var(--muted);
+      font-size: 13px;
+      margin-bottom: 6px;
+      display: block;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 14px 15px;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.07);
+      color: #fff;
+      outline: none;
+    }
+
+    textarea {
+      min-height: 110px;
+      resize: vertical;
+    }
+
+    input::placeholder,
+    textarea::placeholder {
+      color: #7f8ca3;
+    }
+
+    .list {
+      display: grid;
+      gap: 14px;
+    }
+
+    .item {
+      padding: 16px;
+      border-radius: 18px;
+      background: rgba(255,255,255,.06);
+      border: 1px solid var(--border);
+    }
+
+    .item strong {
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .chat-box {
+      height: 360px;
+      overflow-y: auto;
+      display: grid;
+      align-content: start;
+      gap: 12px;
+      padding: 12px;
+      background: rgba(255,255,255,.045);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      margin-bottom: 14px;
+    }
+
+    .message {
+      max-width: 78%;
+      padding: 12px 14px;
+      border-radius: 16px;
+      font-size: 14px;
       line-height: 1.6;
+    }
+
+    .hr {
+      background: rgba(255,255,255,.1);
+      justify-self: start;
+    }
+
+    .me {
+      background: linear-gradient(135deg, rgba(77,163,255,.75), rgba(247,198,95,.75));
+      color: #07111f;
+      justify-self: end;
+      font-weight: 700;
+    }
+
+    .notice {
+      margin-top: 14px;
+      color: var(--success);
       font-size: 14px;
+      display: none;
     }
 
-    .cta {
-      text-align: center;
-      padding: 70px 30px;
-      border-radius: 32px;
-      background:
-        linear-gradient(135deg, rgba(246,200,95,0.18), rgba(85,167,255,0.18)),
-        rgba(255,255,255,0.07);
-      border: 1px solid var(--border);
+    .memo {
+      border-left: 4px solid var(--secondary);
     }
 
-    .cta h2 {
-      font-size: clamp(30px, 4vw, 50px);
-      margin-bottom: 18px;
+    .recognition {
+      border-left: 4px solid var(--primary);
     }
 
-    .cta p {
-      color: var(--muted);
-      margin-bottom: 30px;
-      font-size: 17px;
+    .fun {
+      border-left: 4px solid #a78bfa;
     }
 
-    footer {
-      border-top: 1px solid var(--border);
-      padding: 30px 0;
-      color: var(--muted);
-      text-align: center;
-      font-size: 14px;
-    }
+    @media (max-width: 1100px) {
+      .grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
 
-    @media (max-width: 900px) {
-      .hero {
+      .two-col {
         grid-template-columns: 1fr;
-        padding-top: 60px;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .app {
+        grid-template-columns: 1fr;
+      }
+
+      aside {
+        position: relative;
+        height: auto;
+      }
+
+      main {
+        padding: 20px;
+      }
+
+      .topbar {
+        align-items: flex-start;
+        flex-direction: column;
       }
 
       .grid {
         grid-template-columns: 1fr;
       }
 
-      .process {
-        grid-template-columns: 1fr;
-      }
-
-      .nav-links {
-        display: none;
-      }
-
-      .nav-btn {
-        display: none;
+      .wide {
+        grid-column: span 1;
       }
     }
   </style>
@@ -348,145 +438,491 @@
 
 <body>
 
-  <header>
-    <div class="container nav">
-      <div class="logo">
-        <img src="https://cdn.brandfetch.io/idxWEI3cVr/w/2787/h/740/theme/dark/logo.png?c=1dxbfHSJFAPEGdCLU4o5B" alt="Company Logo">
-      </div>
+<div class="app">
 
-      <nav class="nav-links">
-        <a href="#services">Services</a>
-        <a href="#process">Process</a>
-        <a href="#portal">Portal</a>
-        <a href="#contact">Contact</a>
-      </nav>
-
-      <a href="#portal" class="nav-btn">Get Started</a>
+  <aside>
+    <div class="brand">
+      <img src="https://cdn.brandfetch.io/idxWEI3cVr/w/2787/h/740/theme/dark/logo.png?c=1dxbfHSJFAPEGdCLU4o5B" alt="Daythree Logo">
+      <small>Professional Human Resource Management System</small>
     </div>
-  </header>
 
-  <main class="container">
+    <div class="menu">
+      <button class="active" onclick="showSection('dashboard', this)">Dashboard</button>
+      <button onclick="showSection('attendance', this)">Check In / Out</button>
+      <button onclick="showSection('leave', this)">Leave Management</button>
+      <button onclick="showSection('tasks', this)">My Tasks</button>
+      <button onclick="showSection('payslip', this)">Payslip Request</button>
+      <button onclick="showSection('hr', this)">HR Support</button>
+      <button onclick="showSection('memo', this)">Company Memo</button>
+      <button onclick="showSection('recognition', this)">Recognition Wall</button>
+      <button onclick="showSection('fun', this)">Fun Zone</button>
+    </div>
+  </aside>
 
-    <section class="hero">
-      <div>
-        <div class="badge">Professional Business Portal</div>
-
-        <h1>
-          Smart Digital System For <span>Business Operations</span>
-        </h1>
-
-        <p>
-          A modern, secure and professional web portal designed to simplify registration,
-          internal workflow, employee onboarding, data management and business communication.
-        </p>
-
-        <div class="hero-actions">
-          <a href="#portal" class="primary-btn">Start Now</a>
-          <a href="#services" class="secondary-btn">Explore Services</a>
-        </div>
+  <main>
+    <div class="topbar">
+      <div class="title">
+        <h1>Employee Self-Service Portal</h1>
+        <p>Manage attendance, leave, payslip requests, HR communication and workplace engagement.</p>
       </div>
 
-      <div class="dashboard-card">
-        <div class="card-top">
-          <span>System Overview</span>
-          <span class="status">● Active</span>
-        </div>
-
-        <div class="metric">
-          <h3>98%</h3>
-          <p>Process Efficiency</p>
-          <div class="progress"><span></span></div>
-        </div>
-
-        <div class="metric">
-          <h3>24/7</h3>
-          <p>Digital Access & Automation</p>
-        </div>
-
-        <div class="metric">
-          <h3>Secure</h3>
-          <p>Private data handling with controlled access.</p>
+      <div class="profile">
+        <div class="avatar">JP</div>
+        <div>
+          <strong>Jason Poen</strong>
+          <span>Employee · Taobao Malaysia</span>
         </div>
       </div>
-    </section>
+    </div>
 
-    <section id="services">
-      <div class="section-title">
-        <h2>Business Solutions</h2>
-        <p>Designed for professional teams who need speed, accuracy and control.</p>
-      </div>
-
+    <!-- DASHBOARD -->
+    <section id="dashboard" class="section active">
       <div class="grid">
-        <div class="feature">
-          <div class="icon">✓</div>
-          <h3>Registration System</h3>
-          <p>Collect employee or customer information through a clean and structured digital process.</p>
+        <div class="card">
+          <h3>Attendance Status</h3>
+          <div class="value" id="attendanceStatus">Not Checked In</div>
+          <p>Today’s attendance record.</p>
         </div>
 
-        <div class="feature">
-          <div class="icon">🔒</div>
-          <h3>Secure Access</h3>
-          <p>Keep sensitive information private with restricted access and admin-only management.</p>
+        <div class="card">
+          <h3>Annual Leave Balance</h3>
+          <div class="value">12.5</div>
+          <p>Available days remaining.</p>
         </div>
 
-        <div class="feature">
-          <div class="icon">⚡</div>
-          <h3>Workflow Automation</h3>
-          <p>Reduce manual work by connecting forms, sheets, notifications and internal processes.</p>
-        </div>
-      </div>
-    </section>
-
-    <section id="process">
-      <div class="section-title">
-        <h2>How It Works</h2>
-        <p>A simple and professional process from submission to completion.</p>
-      </div>
-
-      <div class="process">
-        <div class="step">
-          <strong>STEP 01</strong>
-          <h3>Submit</h3>
-          <p>User submits required information through the digital portal.</p>
+        <div class="card">
+          <h3>Pending Tasks</h3>
+          <div class="value">4</div>
+          <p>Assigned tasks awaiting action.</p>
         </div>
 
-        <div class="step">
-          <strong>STEP 02</strong>
-          <h3>Review</h3>
-          <p>Admin checks and verifies the submitted information securely.</p>
+        <div class="card">
+          <h3>HR Requests</h3>
+          <div class="value">2</div>
+          <p>Open support requests.</p>
         </div>
 
-        <div class="step">
-          <strong>STEP 03</strong>
-          <h3>Process</h3>
-          <p>The internal team proceeds with account, access or document preparation.</p>
+        <div class="card wide">
+          <h3>Today’s Overview</h3>
+          <p>
+            Welcome back. Please ensure your attendance is recorded, review your assigned tasks,
+            and check important company memo updates.
+          </p>
+          <div class="actions">
+            <button class="btn btn-primary" onclick="showSection('attendance')">Record Attendance</button>
+            <button class="btn btn-dark" onclick="showSection('leave')">Apply Leave</button>
+          </div>
         </div>
 
-        <div class="step">
-          <strong>STEP 04</strong>
-          <h3>Complete</h3>
-          <p>User receives confirmation once the process has been completed.</p>
+        <div class="card wide">
+          <h3>Quick Actions</h3>
+          <div class="actions">
+            <button class="btn btn-blue" onclick="showSection('payslip')">Request Payslip</button>
+            <button class="btn btn-dark" onclick="showSection('hr')">Contact HR</button>
+            <button class="btn btn-dark" onclick="showSection('tasks')">View Tasks</button>
+          </div>
         </div>
       </div>
     </section>
 
-    <section id="portal">
-      <div class="cta">
-        <h2>Ready To Build A Smarter Business Portal?</h2>
-        <p>
-          Upgrade your workflow with a professional website experience that looks modern,
-          reliable and business-ready.
-        </p>
+    <!-- ATTENDANCE -->
+    <section id="attendance" class="section">
+      <div class="two-col">
+        <div class="card">
+          <h3>Check In / Check Out</h3>
+          <p class="muted">Record your daily attendance securely.</p>
 
-        <a href="#" class="primary-btn">Launch Portal</a>
+          <div class="actions">
+            <button class="btn btn-primary" onclick="checkIn()">Check In</button>
+            <button class="btn btn-danger" onclick="checkOut()">Check Out</button>
+          </div>
+
+          <p class="notice" id="attendanceNotice"></p>
+        </div>
+
+        <div class="card">
+          <h3>Today’s Attendance</h3>
+          <div class="list">
+            <div class="item">
+              <strong>Check In</strong>
+              <p class="muted" id="checkInTime">Not recorded</p>
+            </div>
+            <div class="item">
+              <strong>Check Out</strong>
+              <p class="muted" id="checkOutTime">Not recorded</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- LEAVE -->
+    <section id="leave" class="section">
+      <div class="two-col">
+        <div class="card">
+          <h3>Leave Balance</h3>
+          <table>
+            <tr><th>Leave Type</th><th>Balance</th></tr>
+            <tr><td>Annual Leave</td><td>12.5 Days</td></tr>
+            <tr><td>Medical Leave</td><td>10 Days</td></tr>
+            <tr><td>Emergency Leave</td><td>3 Days</td></tr>
+            <tr><td>Replacement Leave</td><td>1 Day</td></tr>
+          </table>
+        </div>
+
+        <div class="card">
+          <h3>Apply Leave</h3>
+          <div class="form">
+            <div>
+              <label>Leave Type</label>
+              <select>
+                <option>Annual Leave</option>
+                <option>Medical Leave</option>
+                <option>Emergency Leave</option>
+                <option>Replacement Leave</option>
+              </select>
+            </div>
+
+            <div>
+              <label>Start Date</label>
+              <input type="date">
+            </div>
+
+            <div>
+              <label>End Date</label>
+              <input type="date">
+            </div>
+
+            <div>
+              <label>Reason</label>
+              <textarea placeholder="Please provide your reason."></textarea>
+            </div>
+
+            <button class="btn btn-primary" onclick="showNotice('leaveNotice', 'Leave application submitted successfully.')">Submit Application</button>
+            <p class="notice" id="leaveNotice"></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TASKS -->
+    <section id="tasks" class="section">
+      <div class="card">
+        <h3>My Tasks</h3>
+        <table>
+          <tr>
+            <th>Task</th>
+            <th>Due Date</th>
+            <th>Priority</th>
+            <th>Status</th>
+          </tr>
+          <tr>
+            <td>Complete onboarding document verification</td>
+            <td>08 Jul 2026</td>
+            <td>High</td>
+            <td><span class="status open">Open</span></td>
+          </tr>
+          <tr>
+            <td>Review company policy acknowledgement</td>
+            <td>10 Jul 2026</td>
+            <td>Medium</td>
+            <td><span class="status pending">Pending</span></td>
+          </tr>
+          <tr>
+            <td>Submit monthly attendance confirmation</td>
+            <td>15 Jul 2026</td>
+            <td>Medium</td>
+            <td><span class="status open">Open</span></td>
+          </tr>
+          <tr>
+            <td>Update emergency contact information</td>
+            <td>20 Jul 2026</td>
+            <td>Low</td>
+            <td><span class="status approved">Completed</span></td>
+          </tr>
+        </table>
+      </div>
+    </section>
+
+    <!-- PAYSLIP -->
+    <section id="payslip" class="section">
+      <div class="two-col">
+        <div class="card">
+          <h3>Request Payslip</h3>
+          <p class="muted">Submit a request to HR for payslip retrieval or re-issuance.</p>
+
+          <div class="form" style="margin-top:16px;">
+            <div>
+              <label>Month</label>
+              <select>
+                <option>June 2026</option>
+                <option>May 2026</option>
+                <option>April 2026</option>
+                <option>March 2026</option>
+              </select>
+            </div>
+
+            <div>
+              <label>Purpose</label>
+              <textarea placeholder="Example: Bank loan application, personal record, HR verification."></textarea>
+            </div>
+
+            <button class="btn btn-primary" onclick="showNotice('payslipNotice', 'Payslip request has been submitted to HR.')">Submit Request</button>
+            <p class="notice" id="payslipNotice"></p>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>Recent Payslip Requests</h3>
+          <div class="list">
+            <div class="item">
+              <strong>May 2026 Payslip</strong>
+              <p class="muted">Status: Processing</p>
+            </div>
+            <div class="item">
+              <strong>April 2026 Payslip</strong>
+              <p class="muted">Status: Completed</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- HR SUPPORT -->
+    <section id="hr" class="section">
+      <div class="two-col">
+        <div class="card">
+          <h3>HR Support Chat</h3>
+
+          <div class="chat-box" id="chatBox">
+            <div class="message hr">Hello Jason, how may HR assist you today?</div>
+          </div>
+
+          <div class="form">
+            <input id="chatInput" placeholder="Type your message to HR...">
+            <button class="btn btn-primary" onclick="sendChat()">Send Message</button>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>HR Contact Window</h3>
+          <div class="list">
+            <div class="item">
+              <strong>Payroll & Payslip</strong>
+              <p class="muted">For salary, payslip and statutory contribution related enquiries.</p>
+            </div>
+            <div class="item">
+              <strong>Leave & Attendance</strong>
+              <p class="muted">For leave balance, attendance correction and shift record support.</p>
+            </div>
+            <div class="item">
+              <strong>Employee Relations</strong>
+              <p class="muted">For workplace concerns, policy clarification and confidential support.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MEMO -->
+    <section id="memo" class="section">
+      <div class="card">
+        <h3>Company Memo</h3>
+        <div class="list">
+          <div class="item memo">
+            <strong>HRMS Portal Rollout</strong>
+            <p class="muted">Employees are encouraged to use the HRMS portal for attendance, leave, payslip and HR-related requests.</p>
+          </div>
+          <div class="item memo">
+            <strong>Attendance Reminder</strong>
+            <p class="muted">Please ensure all check-in and check-out records are completed daily before the end of shift.</p>
+          </div>
+          <div class="item memo">
+            <strong>Policy Acknowledgement</strong>
+            <p class="muted">All employees are required to review and acknowledge the latest company policy updates.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- RECOGNITION -->
+    <section id="recognition" class="section">
+      <div class="card">
+        <h3>Recognition Wall</h3>
+        <div class="list">
+          <div class="item recognition">
+            <strong>Outstanding Support</strong>
+            <p class="muted">Congratulations to the team for maintaining excellent service quality and strong collaboration.</p>
+          </div>
+          <div class="item recognition">
+            <strong>Best Team Player</strong>
+            <p class="muted">Recognising employees who actively support their colleagues and contribute positively to the workplace.</p>
+          </div>
+          <div class="item recognition">
+            <strong>Service Excellence</strong>
+            <p class="muted">Appreciation for consistent dedication, professionalism and customer-first mindset.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FUN ZONE -->
+    <section id="fun" class="section">
+      <div class="grid">
+        <div class="card wide">
+          <h3>Fun Zone</h3>
+          <p class="muted">
+            A light-hearted space for employee engagement, team activities, internal games and wellness moments.
+          </p>
+
+          <div class="actions">
+            <button class="btn btn-primary" onclick="generateQuote()">Generate Motivational Quote</button>
+            <button class="btn btn-dark" onclick="generateChallenge()">Today’s Fun Challenge</button>
+          </div>
+
+          <p class="notice" id="funResult" style="display:block;color:#fff;margin-top:18px;"></p>
+        </div>
+
+        <div class="card wide">
+          <h3>Upcoming Engagement</h3>
+          <div class="list">
+            <div class="item fun">
+              <strong>Friday Team Appreciation</strong>
+              <p class="muted">Share one appreciation message to a colleague this Friday.</p>
+            </div>
+            <div class="item fun">
+              <strong>Mini Wellness Break</strong>
+              <p class="muted">Take 5 minutes to rest, stretch and reset your focus.</p>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
   </main>
+</div>
 
-  <footer id="contact">
-    © 2026 Daythree Taobao Malaysia. All Rights Reserved.
-  </footer>
+<script>
+  function showSection(id, button) {
+    document.querySelectorAll('.section').forEach(section => {
+      section.classList.remove('active');
+    });
+
+    document.getElementById(id).classList.add('active');
+
+    document.querySelectorAll('.menu button').forEach(btn => {
+      btn.classList.remove('active');
+    });
+
+    if (button) {
+      button.classList.add('active');
+    } else {
+      const buttons = document.querySelectorAll('.menu button');
+      buttons.forEach(btn => {
+        if (btn.textContent.toLowerCase().includes(id.toLowerCase())) {
+          btn.classList.add('active');
+        }
+      });
+    }
+  }
+
+  function getTime() {
+    const now = new Date();
+    return now.toLocaleString('en-MY', {
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+      day: '2-digit',
+      month: 'short',
+      year: 'numeric'
+    });
+  }
+
+  function checkIn() {
+    const time = getTime();
+    localStorage.setItem('checkInTime', time);
+    document.getElementById('checkInTime').textContent = time;
+    document.getElementById('attendanceStatus').textContent = 'Checked In';
+    showNotice('attendanceNotice', 'Check in recorded successfully at ' + time);
+  }
+
+  function checkOut() {
+    const time = getTime();
+    localStorage.setItem('checkOutTime', time);
+    document.getElementById('checkOutTime').textContent = time;
+    document.getElementById('attendanceStatus').textContent = 'Checked Out';
+    showNotice('attendanceNotice', 'Check out recorded successfully at ' + time);
+  }
+
+  function showNotice(id, text) {
+    const notice = document.getElementById(id);
+    notice.textContent = text;
+    notice.style.display = 'block';
+  }
+
+  function sendChat() {
+    const input = document.getElementById('chatInput');
+    const chatBox = document.getElementById('chatBox');
+
+    if (!input.value.trim()) return;
+
+    const userMsg = document.createElement('div');
+    userMsg.className = 'message me';
+    userMsg.textContent = input.value;
+    chatBox.appendChild(userMsg);
+
+    input.value = '';
+
+    setTimeout(() => {
+      const reply = document.createElement('div');
+      reply.className = 'message hr';
+      reply.textContent = 'Thank you for contacting HR. Your request has been received and will be reviewed accordingly.';
+      chatBox.appendChild(reply);
+      chatBox.scrollTop = chatBox.scrollHeight;
+    }, 600);
+
+    chatBox.scrollTop = chatBox.scrollHeight;
+  }
+
+  function generateQuote() {
+    const quotes = [
+      'Great teams are built through trust, ownership and consistent effort.',
+      'Professional growth begins with accountability and a positive mindset.',
+      'Small daily improvements create long-term excellence.',
+      'Teamwork turns individual effort into shared success.'
+    ];
+
+    document.getElementById('funResult').textContent =
+      quotes[Math.floor(Math.random() * quotes.length)];
+  }
+
+  function generateChallenge() {
+    const challenges = [
+      'Today’s challenge: Appreciate one colleague for something they did well.',
+      'Today’s challenge: Clear one pending task before lunch.',
+      'Today’s challenge: Take a 5-minute wellness break and reset your focus.',
+      'Today’s challenge: Share one useful work tip with your team.'
+    ];
+
+    document.getElementById('funResult').textContent =
+      challenges[Math.floor(Math.random() * challenges.length)];
+  }
+
+  window.onload = function () {
+    const checkInTime = localStorage.getItem('checkInTime');
+    const checkOutTime = localStorage.getItem('checkOutTime');
+
+    if (checkInTime) {
+      document.getElementById('checkInTime').textContent = checkInTime;
+      document.getElementById('attendanceStatus').textContent = 'Checked In';
+    }
+
+    if (checkOutTime) {
+      document.getElementById('checkOutTime').textContent = checkOutTime;
+      document.getElementById('attendanceStatus').textContent = 'Checked Out';
+    }
+  };
+</script>
 <elevenlabs-convai agent-id="agent_2301kwrpr9pafrktsddv9v7htn5g"></elevenlabs-convai><script src="https://unpkg.com/@elevenlabs/convai-widget-embed" async type="text/javascript"></script>
 </body>
 </html>
